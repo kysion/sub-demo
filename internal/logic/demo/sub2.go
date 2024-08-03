@@ -14,19 +14,9 @@ type sSub2 struct {
 
 func NewSub2() service.ISub2 {
   result := &sSub2{}
-
-  // 订阅 用户授权Hook 和 取消授权Hook
-  //service.Gateway().UserHook().InstallHook(1, result.Auth)
-  //service.Gateway().UserHook().InstallHook(2, result.UnAuth)
-
-  // 旧的
-  //hook.Gateway().OtherHook().InstallHook(1, result.Auth)
-  //hook.Gateway().OtherHook().InstallHook(2, result.UnAuth)
-
+  
   result.OtherHook.InstallHook(1, result.Auth)
   result.OtherHook.InstallHook(2, result.UnAuth)
-
-  base_hook.RegisterHookMessage(&result.OtherHook)
 
   return result
 }
@@ -37,7 +27,7 @@ func init() {
 
 // Auth 授权
 func (s *sSub2) Auth(ctx context.Context, info *base_hook.User) error {
-  fmt.Println("Auth22")
+  fmt.Println("OtherHook_Auth", info.Username)
   fmt.Println(info)
 
   return nil
@@ -45,6 +35,6 @@ func (s *sSub2) Auth(ctx context.Context, info *base_hook.User) error {
 
 // UnAuth 取消授权
 func (s *sSub2) UnAuth(ctx context.Context, info *base_hook.User) error {
-  fmt.Println("UnAuth22")
+  fmt.Println("OtherHook_UnAuth", info.Username)
   return nil
 }

@@ -22,39 +22,10 @@ var (
         //)
       })
 
-      //hook.Gateway()
-      s.BindHandler("/ws", base_hook.HookDistribution) // 接收消息
+      // 注册跨进程通信的 websocket 服务，用于接收消息
+      wsPath := g.Cfg().MustGet(context.Background(), "service.wsPath", "/ws").String()
+      s.BindHandler(wsPath, base_hook.HookDistribution)
 
-      //s.BindHandler("/ws", func(r *ghttp.Request) {
-      //  ws, err := r.WebSocket()
-      //  if err != nil {
-      //    glog.Error(ctx, err)
-      //    r.Exit()
-      //  }
-      //  for {
-      //    _, msg, err := ws.ReadMessage()
-      //    if err != nil {
-      //      return
-      //    }
-      //    fmt.Println(string(msg))
-      //
-      //    data := base_model.HookModel{}
-      //    // 解析订阅数据包
-      //    err = gjson.DecodeTo(msg, &data)
-      //    if err != nil {
-      //      fmt.Println(err)
-      //      continue
-      //    }
-      //
-      //    data.Ctx = r.Context()
-      //    data.Source = &base_model.HookHostInfo{
-      //      Host: r.Host,
-      //      Port: 0,
-      //    }
-      //    hook.Gateway().BroadcastMessage(data)
-      //    ws.WriteMessage(websocket.TextMessage, []byte("hello word"))
-      //  }
-      //})
       s.Run()
       return nil
     },

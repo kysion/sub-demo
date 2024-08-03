@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/gogf/gf/v2 v2.6.1
-	github.com/kysion/base-library v0.0.36
+	github.com/kysion/base-library v0.0.37
 )
 
 require (
@@ -32,5 +32,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/kysion/base-library => /Volumes/DataDocument/CodeSpace/github.com/kysion/base-library
-
+//replace github.com/kysion/base-library => /Volumes/DataDocument/CodeSpace/github.com/kysion/base-library
+//
