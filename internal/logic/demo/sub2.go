@@ -14,7 +14,7 @@ type sSub2 struct {
 
 func NewSub2() service.ISub2 {
   result := &sSub2{}
-  
+
   result.OtherHook.InstallHook(1, result.Auth)
   result.OtherHook.InstallHook(2, result.UnAuth)
 
@@ -29,6 +29,10 @@ func init() {
 func (s *sSub2) Auth(ctx context.Context, info *base_hook.User) error {
   fmt.Println("OtherHook_Auth", info.Username)
   fmt.Println(info)
+
+  //// 使用方式1：Latest方式
+  //info.Username = "LinFeiFei"
+  //base_hook.PublishHookMessage(context.Background(), &s.OtherHook, base_hook.Option{Data: info}) // 发布消息
 
   return nil
 }
